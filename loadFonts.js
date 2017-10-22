@@ -5,6 +5,8 @@
 
 function loadFonts(sUrl, timeout, callback) {
 
+  console.time("Process");
+
   var args = Array.prototype.slice.call(arguments, 3),
       xhr = new XMLHttpRequest();
   xhr.ontimeout = function () {
@@ -19,6 +21,7 @@ function loadFonts(sUrl, timeout, callback) {
 				console.error(xhr.statusText);
 			}
 		}
+		console.timeEnd("Process");
 	};
 	xhr.open("GET", sUrl, true);
 	xhr.timeout = timeout;
@@ -27,12 +30,13 @@ function loadFonts(sUrl, timeout, callback) {
 
 function inject(m) {
 	var e = this.responseText,
-		a = document.getElementsByTagName( "script" )[0],
+	        h = document.getElementsByTagName('head')[0],
+		a = document.getElementsByTagName('link')[0],
 		s = document.createElement("style");
 	s.media = "only screen";
 	s.innerHTML = e;
 	if ("undefined" != typeof s) {
-		document.getElementsByTagName("head")[0].appendChild(s);
+		h.insertBefore(h.appendChild(s), a);
 	}
 }
 
