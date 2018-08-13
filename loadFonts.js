@@ -5,7 +5,7 @@
 
 function loadFonts(sUrl, timeout, callback) {
 
-  console.time("Process");
+  if (typeof console!='undefined') console.time("Process");
 
   var args = Array.prototype.slice.call(arguments, 3),
       xhr = new XMLHttpRequest();
@@ -21,7 +21,7 @@ function loadFonts(sUrl, timeout, callback) {
 				console.error(xhr.statusText);
 			}
 		}
-		console.timeEnd("Process");
+		if (typeof console!='undefined') console.timeEnd("Process");
 	};
 	xhr.open("GET", sUrl, true);
 	xhr.timeout = timeout;
