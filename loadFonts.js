@@ -1,38 +1,39 @@
 /**
  * @source https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
  */
-"use strict";
+function loadFonts(sUrl, timeout, width) {
 
-function loadFonts(sUrl, timeout, callback) {
+	if (w < (window.innerWidth || document.documentElement.clientWidth || document.getElementBbyTagName("body").clientWidth)) {
 
-  if (typeof console!='undefined') console.time("Process");
+		if (typeof console!='undefined') console.time("Process");
 
-  var args = Array.prototype.slice.call(arguments, 3),
-      xhr = new XMLHttpRequest();
-  xhr.ontimeout = function () {
-    console.error("The request for " + sUrl + " timed out.");
-	};
-	xhr.onload = function () {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 200) {
-				callback.apply(xhr, args);
-				console.log("Fonts Loaded!");
-			} else {
-				console.error(xhr.statusText);
+		var args = Array.prototype.slice.call(arguments, 3),
+	    	    xhr = new XMLHttpRequest();
+		xhr.ontimeout = function () {
+			console.error("The request for " + sUrl + " timed out.");
+		};
+		xhr.onload = function () {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					inject.apply(xhr, args);
+					console.log("Fonts Loaded!");
+				} else {
+					console.error(xhr.statusText);
+				}
 			}
-		}
-		if (typeof console!='undefined') console.timeEnd("Process");
-	};
-	xhr.open("GET", sUrl, true);
-	xhr.timeout = timeout;
-	xhr.send(null);
+			if (typeof console!='undefined') console.timeEnd("Process");
+		};
+		xhr.open("GET", sUrl, true);
+		xhr.timeout = timeout;
+		xhr.send(null);
+	}
 }
 
 function inject(m) {
 	var e = this.responseText,
-	        h = document.getElementsByTagName('head')[0],
-		a = document.getElementsByTagName('link')[0],
-		s = document.createElement("style");
+	    h = document.getElementsByTagName('head')[0],
+	    a = document.getElementsByTagName('link')[0],
+	    s = document.createElement("style");
 	s.media = "only screen";
 	s.innerHTML = e;
 	if ("undefined" != typeof s) {
@@ -41,4 +42,4 @@ function inject(m) {
 }
 
 // Loads fonts
-loadFonts('https://fonts.googleapis.com/css?family=Open+Sans|Noto+Sans', 1500, inject);
+loadFonts('https://fonts.googleapis.com/css?family=Open+Sans%7CNoto+Sans', 1500, 680);
