@@ -3,7 +3,7 @@
  */
 function loadFonts(sUrl, timeout, width) {
 
-	if (w < (window.innerWidth || document.documentElement.clientWidth || document.getElementBbyTagName("body").clientWidth)) {
+	if (width < (window.innerWidth || document.documentElement.clientWidth || document.getElementBbyTagName("body").clientWidth)) {
 
 		if (typeof console!='undefined') console.time("Process");
 
