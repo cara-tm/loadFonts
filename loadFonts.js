@@ -3,7 +3,11 @@
  */
 
 function _inject(m) {
-	var e = this.responseText, h = document.getElementsByTagName("head")[0], a = document.getElementsByTagName("link")[0], s = document.createElement("style"); s.media = "screen";
+	var e = this.responseText, 
+	    h = document.getElementsByTagName("head")[0], 
+	    a = document.getElementsByTagName("meta")[0], 
+	    s = document.createElement("style"); 
+	s.media = "screen";
 	s.textContent = e;
 	if ("undefined" != typeof s) {
 		h.insertBefore(h.appendChild(s), a);
@@ -26,7 +30,8 @@ function loadFonts(sUrl, timeout, width) {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
 					_inject.apply(xhr, args);
-					console.log("Fonts Loaded!");
+					document.querySelector("html").classList.add("wf-active");
+					console.log("Fonts Loaded! class `.wf-active` added,");
 				} else {
 					console.error(xhr.statusText);
 				}
